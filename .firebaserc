@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "input-output-app-94b50": {
+      "hosting": {
+        "ngrx-example": [
+          "input-output-app-94b50"
+        ]
+      }
+    }
+  }
+}

@@ -1,15 +1,17 @@
-
 <div class="page-body-wrapper full-page-wrapper auth-page">
   <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
     <div class="row w-100">
       <div class="col-lg-4 mx-auto">
-        <h2 class="text-center mb-4" style="color: white;">Ingresar</h2>
+        <h2 class="text-center mb-4" style="color: white;">Sign in</h2>
         <div class="auto-form-wrapper">
-          <form action="#">
+          <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
             <div class="form-group">
               <label class="label">Usuario</label>
               <div class="input-group">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email"
+                       class="form-control"
+                       formControlName="email"
+                       placeholder="Email">
                 <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="fa fa-check-circle"></i>
@@ -20,7 +22,10 @@
             <div class="form-group">
               <label class="label">Contraseña</label>
               <div class="input-group">
-                <input type="password" class="form-control" placeholder="*********">
+                <input type="password"
+                       class="form-control"
+                       formControlName="password"
+                       placeholder="*********">
                 <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="fa fa-check-circle"></i>
@@ -34,9 +39,9 @@
 
 
             <div class="text-block text-center my-3">
-              <span class="text-small font-weight-semibold">No estas registrado? </span>
+              <span class="text-small font-weight-semibold">Not registered? </span>
               <br>
-              <a routerLink="/register" class="text-black text-small">Crear una cuenta</a>
+              <a routerLink="/register" class="text-black text-small">Create an account</a>
             </div>
           </form>
         </div>
