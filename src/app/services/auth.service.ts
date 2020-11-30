@@ -16,4 +16,8 @@ export class AuthService {
   loginUser(email: string, password: string): ReturnType<firebase.default.auth.Auth['signInWithEmailAndPassword']> {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
+
+  logOut(): ReturnType<firebase.default.auth.Auth['signOut']> {
+    return this.auth.signOut();
+  }
 }

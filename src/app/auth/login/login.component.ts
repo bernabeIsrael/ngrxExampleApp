@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 import {AuthService} from '../../services/auth.service';
 
@@ -32,12 +33,26 @@ export class LoginComponent implements OnInit {
       return;
     }
     const {email, password} = this.loginForm.value;
-    console.log(this.loginForm.value);
+
+    Swal.fire({
+      title: 'Wait a moment plz',
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      }
+    });
     this.authService.loginUser(email, password)
       .then(credentials => {
-        this.router.navigate(['/']);
         console.log(credentials);
+        Swal.close();
+        this.router.navigate(['/']);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.message
+        });
+      });
   }
 }
