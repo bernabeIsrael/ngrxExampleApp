@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {Store} from '@ngrx/store';
-import {AppState} from '../../app.reducer';
+import {AppStateWithInput} from '../input-output.reducer';
 import {Subscription} from 'rxjs';
 
 import {InputOutput} from '../../models/input-output.model';
@@ -19,7 +19,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   inputOutput: InputOutput[] = [];
   inputOutputSubs = new Subscription();
 
-  constructor(private store: Store<AppState>,
+  constructor(private store: Store<AppStateWithInput>,
               private inputOutputService: InputOutputService) {
 
   }
@@ -41,6 +41,5 @@ export class DetailComponent implements OnInit, OnDestroy {
       .deleteInputOuputItem(uid)
       .then(() => Swal.fire('Deleted', 'Item deleted', 'success'))
       .catch((error) => Swal.fire('Error', error.message, 'error'));
-    console.log(uid);
   }
 }

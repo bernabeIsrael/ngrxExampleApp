@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Store} from '@ngrx/store';
-import {AppState} from '../../app.reducer';
+import {AppStateWithInput} from '../input-output.reducer';
 
 import {InputOutput} from '../../models/input-output.model';
 
 import {Label, MultiDataSet} from 'ng2-charts';
-import {ChartType} from 'chart.js';
 
 @Component({
   selector: 'app-statistics',
@@ -24,7 +23,7 @@ export class StatisticsComponent implements OnInit {
   public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales'];
   public doughnutChartData: MultiDataSet = [[]];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppStateWithInput>) {
     this.store.select('inputOutput')
       .subscribe(({items}) => {
         this.generateStatistics(items);
@@ -50,14 +49,5 @@ export class StatisticsComponent implements OnInit {
       }
     }
     this.doughnutChartData = [[this.totalInputs, this.totalOutputs]];
-  }
-
-  // events
-  public chartClicked({event, active}: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({event, active}: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
   }
 }

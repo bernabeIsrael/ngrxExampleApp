@@ -1,9 +1,14 @@
 import {ActionReducer, createReducer, on} from '@ngrx/store';
 import {setItems, unSetItems} from './input-output.actions';
 import {InputOutput} from '../models/input-output.model';
+import {AppState} from '../app.reducer';
 
 export interface State {
   items: InputOutput[];
+}
+
+export interface AppStateWithInput extends AppState {
+  inputOutput: State;
 }
 
 export const initialState: State = {

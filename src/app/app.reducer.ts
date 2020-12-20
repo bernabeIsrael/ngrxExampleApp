@@ -6,12 +6,12 @@ import * as inputOutput from './input-output/input-output.reducer';
 export interface AppState {
   ui: ui.State;
   user: auth.State;
-  inputOutput: inputOutput.State;
+  // inputOutput: inputOutput.State;
 }
 
 
 export const appReducers: ActionReducerMap<AppState> = {
   ui: ui.uiReducer,
   user: auth.authReducer,
-  inputOutput: inputOutput.inputOutputReducer,
+  // inputOutput: inputOutput.inputOutputReducer,
 };
