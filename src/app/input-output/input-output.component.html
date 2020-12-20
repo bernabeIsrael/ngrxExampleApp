@@ -2,53 +2,74 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Agregar Ingreso / Egreso</h4>
+        <h4 class="card-title">Add Input / Output</h4>
         <p class="card-description">
-          Especifique el monto y el tipo
+          Specify the amount and type
         </p>
 
-        <form>
+        <form [formGroup]="form" (ngSubmit)="save()">
 
           <div class="form-group">
-            <label>Descripción</label>
+            <label>Description</label>
             <input type="text"
                    class="form-control"
-                   placeholder="Descripción"
-                   name="descripcion">
+                   placeholder="Description"
+                   formControlName="description"
+                   name="description">
           </div>
 
           <div class="form-group">
-            <label>Monto</label>
+            <label>Amount</label>
             <input type="number"
                    class="form-control"
-                   placeholder="Monto"
-                   name="monto">
+                   placeholder="Amount"
+                   formControlName="amount"
+                   name="amount">
             <p>
-              Debe de ser un monto positivo
+              It must be a positive amount
             </p>
           </div>
 
           <div class="form-group">
-            <label>Tipo</label>
+            <label>Type</label>
             <br>
-            <button type="button" class="btn btn-primary btn-block">Ingreso</button>
-            <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+            <button type="button"
+                    *ngIf="type === 'input'"
+                    (click)="type = 'output'"
+                    class="btn btn-primary btn-block">Input
+            </button>
+            <button type="button"
+                    *ngIf="type === 'output'"
+                    (click)="type = 'input'"
+                    class="btn btn-warning btn-block">Output
+            </button>
           </div>
 
           <hr>
-          <button type="button" class="btn btn-success mr-2">
+          <button type="submit"
+                  *ngIf="!loading"
+                  [disabled]="form.invalid"
+                  class="btn btn-success mr-2">
             <i class="fa fa-save"></i>
-            Agregar
+            Add
+          </button>
+
+          <button type="submit"
+                  *ngIf="loading"
+                  [disabled]="true"
+                  class="btn btn-success mr-2">
+            <i class="fa fa-spin fa-sync"></i>
+            Adding
           </button>
 
           <!--
             <button disabled class="btn btn-success mr-2">
               <i class="fa fa-spin fa-sync"></i>
-              Espere por favor...
+              Wait please...
             </button>
           -->
 
-          <button type="reset" class="btn btn-light">Cancelar</button>
+          <button type="reset" class="btn btn-light">Cancel</button>
 
         </form>
       </div>

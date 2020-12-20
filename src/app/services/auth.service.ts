@@ -7,6 +7,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../app.reducer';
 import * as authActions from '../auth/auth.actions';
+import * as inputOutputActions from '../input-output/input-output.actions';
 
 import {map} from 'rxjs/operators';
 import {User} from '../models/user.model';
@@ -17,10 +18,16 @@ import {User} from '../models/user.model';
 export class AuthService {
 
   private userSubscription: Subscription = new Subscription();
+  private _user: User | null;
+
+  get user(): User | null {
+    return this._user;
+  }
 
   constructor(public auth: AngularFireAuth,
               private firestore: AngularFirestore,
               private store: Store<AppState>) {
+    this._user = null;
   }
 
   initAuthListener(): void {
@@ -29,11 +36,14 @@ export class AuthService {
         this.userSubscription = this.firestore.doc(`${firebaseUser.uid}/user`).valueChanges()
           .subscribe(fireStoreUser => {
             const user = User.fromFirebase(fireStoreUser);
+            this._user = user;
             this.store.dispatch(authActions.setUser({user}));
           });
       } else {
+        this._user = null;
         this.userSubscription.unsubscribe();
         this.store.dispatch(authActions.unSetUser());
+        this.store.dispatch(inputOutputActions.unSetItems());
       }
     });
   }
